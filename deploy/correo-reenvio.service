@@ -1,0 +1,22 @@
+[Unit]
+Description=correo-reenvio: redireccionador de correos (ligero)
+Documentation=file:///home/pi/correo-reenvio/README.md
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+# Cambia "pi" y la ruta si tu usuario o carpeta son otros
+User=pi
+WorkingDirectory=/home/pi/correo-reenvio
+ExecStart=/usr/bin/python3 -B -m lector.lector servicio
+Environment=PYTHONDONTWRITEBYTECODE=1
+UMask=0077
+Restart=on-failure
+RestartSec=20
+# Limites para una Raspberry Pi Zero (512 MB de RAM)
+MemoryMax=120M
+Nice=10
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,101 @@
+{
+  "version": 2,
+  "ajustes": {
+    "intervalo_respaldo_seg": 300,
+    "idle_seg": 600,
+    "reintentos": 3,
+    "limite_por_ciclo": 50,
+    "tamano_maximo_mb": 10
+  },
+  "cuentas": [
+    {
+      "id": "hotmail_principal",
+      "correo": "tu-correo@hotmail.com",
+      "proveedor": "outlook",
+      "auth": "oauth2",
+      "activa": true,
+      "raspberry_pi": false
+    },
+    {
+      "id": "gmail_trabajo",
+      "correo": "tu-correo@gmail.com",
+      "proveedor": "gmail",
+      "auth": "app_password",
+      "activa": true,
+      "raspberry_pi": false
+    }
+  ],
+  "reglas": [
+    {
+      "id": "todo_a_respaldo",
+      "nombre": "Todo el correo de Gmail a respaldo",
+      "cuenta": "gmail_trabajo",
+      "carpeta": "INBOX",
+      "modo": "todo",
+      "rutas": [
+        {
+          "nombre": "Todo el correo",
+          "destino": "respaldo@ejemplo.com",
+          "filtros": {}
+        }
+      ],
+      "procesar_existentes": false,
+      "marcar_leido": false,
+      "activa": true
+    },
+    {
+      "id": "facturas",
+      "nombre": "Facturas a contabilidad",
+      "cuenta": "hotmail_principal",
+      "carpeta": "INBOX",
+      "modo": "filtro",
+      "rutas": [
+        {
+          "nombre": "Facturas",
+          "destino": "contabilidad@ejemplo.com",
+          "filtros": {
+            "desde": "facturacion@ejemplo.com",
+            "asunto": "factura",
+            "dias": 2,
+            "solo_no_leidos": true
+          }
+        }
+      ],
+      "limite": 20,
+      "procesar_existentes": false,
+      "marcar_leido": false,
+      "activa": true
+    },
+    {
+      "id": "clientes_por_remitente",
+      "nombre": "Cada remitente a su correo",
+      "cuenta": "hotmail_principal",
+      "carpeta": "INBOX",
+      "modo": "rutas",
+      "rutas": [
+        {
+          "nombre": "Clientes",
+          "destino": "ventas@ejemplo.com",
+          "filtros": {
+            "desde": "cliente@ejemplo.com"
+          }
+        },
+        {
+          "nombre": "Proveedores",
+          "destino": "compras@ejemplo.com",
+          "filtros": {
+            "desde": "proveedor@ejemplo.com"
+          }
+        },
+        {
+          "nombre": "Resto",
+          "destino": "general@ejemplo.com",
+          "filtros": {}
+        }
+      ],
+      "procesar_existentes": false,
+      "marcar_leido": false,
+      "activa": true
+    }
+  ]
+}

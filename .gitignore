@@ -1,0 +1,27 @@
+# ---- Datos privados: NUNCA subir ----
+config.json
+config.json.bak
+config.json.tmp
+.env
+.env.*
+!.env.example
+tokens/
+state/
+logs/
+token*.json
+*token*.json
+
+# ---- Python ----
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# ---- Sistema / editor ----
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+paquete_pi*/
+.paquete_pi-*/
